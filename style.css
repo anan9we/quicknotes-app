@@ -1,0 +1,154 @@
+/* Box-sizing reset */
+* {
+    box-sizing: border-box;
+}
+
+/* Page */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f8;
+    color: #222;
+}
+
+/* Header */
+header {
+    background-color: #2563eb;
+    color: white;
+    text-align: center;
+    padding: 30px 20px;
+}
+
+header h1 {
+    margin: 0 0 8px;
+}
+
+header p {
+    margin: 0;
+}
+
+/* Main area */
+main {
+    max-width: 700px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+/* Sections */
+section {
+    background-color: white;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 10px;
+}
+
+section h2 {
+    margin-top: 0;
+}
+
+/* Form */
+#note-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#note-input,
+#note-category,
+#search-input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#note-input {
+    flex: 1;
+}
+
+#note-category {
+    min-width: 120px;
+}
+
+/* Buttons */
+button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #2563eb;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #1d4ed8;
+}
+
+/* Error message */
+#error-message {
+    color: red;
+    margin-bottom: 0;
+}
+
+/* Search */
+#search-input {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+/* Notes */
+#notes-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#notes-list li {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    background-color: #fafafa;
+}
+
+#notes-list li p {
+    margin: 8px 0;
+}
+
+/* Category styles */
+.category-personal {
+    border-left: 5px solid teal !important;
+}
+
+.category-work {
+    border-left: 5px solid darkred !important;
+}
+
+.category-study {
+    border-left: 5px solid blue !important;
+}
+
+.category-label {
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+}
+
+/* Responsive layout */
+@media (max-width: 600px) {
+    #note-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #note-input,
+    #note-category,
+    #note-form button {
+        width: 100%;
+    }
+}
