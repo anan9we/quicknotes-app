@@ -1,16 +1,28 @@
 const noteForm = document.querySelector("#note-form");
 const noteInput = document.querySelector("#note-input");
 const noteCategory = document.querySelector("#note-category");
+const searchInput = document.querySelector("#search-input");
 const notesList = document.querySelector("#notes-list");
 const errorMessage = document.querySelector("#error-message");
 const noteCount = document.querySelector("#note-count");
 
-let notes = [];
+let notes = JSON.parse(localStorage.getItem("notes")) || [];
 
-function render() {
+function saveNotes() {
+    localStorage.setItem("notes", JSON.stringify(notes));
+}
+
+function render(notesToRender = notes) {
     notesList.textContent = "";
 
-    notes.forEach((note) => {
+    if (notesToRender.length === 0 && searchInput.value.trim() !== "") {
+        const noResults = document.createElement("li");
+        noResults.textContent = "No notes match your search.";
+        notesList.appendChild(noResults);
+        return;
+    }
+
+    notesToRender.forEach((note) => {
         const listItem = document.createElement("li");
 
         listItem.classList.add(
@@ -32,7 +44,10 @@ function render() {
 
         deleteButton.addEventListener("click", () => {
             notes = notes.filter((item) => item.id !== note.id);
-            render();
+
+            saveNotes();
+            render(getFilteredNotes());
+            updateCount();
         });
 
         listItem.appendChild(text);
@@ -58,6 +73,18 @@ function updateCount() {
     }
 }
 
+function getFilteredNotes() {
+    const searchTerm = searchInput.value.trim().toLowerCase();
+
+    if (searchTerm === "") {
+        return notes;
+    }
+
+    return notes.filter((note) =>
+        note.text.toLowerCase().includes(searchTerm)
+    );
+}
+
 noteForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
@@ -70,7 +97,8 @@ noteForm.addEventListener("submit", (event) => {
     }
 
     if (text.length > 200) {
-        errorMessage.textContent = "Notes must be 200 characters or fewer.";
+        errorMessage.textContent =
+            "Notes must be 200 characters or fewer.";
         return;
     }
 
@@ -85,7 +113,14 @@ noteForm.addEventListener("submit", (event) => {
 
     notes.push(newNote);
 
-    render();
+    saveNotes();
+    render(getFilteredNotes());
 
     noteInput.value = "";
 });
+
+searchInput.addEventListener("input", () => {
+    render(getFilteredNotes());
+});
+
+render();
